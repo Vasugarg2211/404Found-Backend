@@ -1,8 +1,8 @@
 package com.__found.found.logs.config;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,9 +13,14 @@ public class RabbitMQConfig {
     public static final String QUEUE_NAME = "LOCAL_MQ";
     public static final String ROUTING_KEY = "LOG_MESSAGES";
 
+//    @Bean
+//    public TopicExchange exchange() {
+//        return new TopicExchange(EXCHANGE_NAME);
+//    }
+
     @Bean
-    public TopicExchange exchange() {
-        return new TopicExchange(EXCHANGE_NAME);
+    public DirectExchange exchange() {
+        return new DirectExchange(EXCHANGE_NAME);
     }
 
     @Bean
@@ -24,8 +29,21 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Binding binding(Queue queue, TopicExchange exchange) {
+    public Binding binding(Queue queue, DirectExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY);
     }
+
+//    @Bean
+//    public RabbitAdmin rabbitAdmin(ConnectionFactory connectionFactory) {
+//        RabbitAdmin rabbitAdmin = new RabbitAdmin(connectionFactory);
+//        rabbitAdmin.setAutoStartup(true); // Set to true if you want it to start automatically
+//        return rabbitAdmin; // Avoid MBean registration
+//    }
+
+//    @Bean
+//    @ConditionalOnMissingBean
+//    public RabbitAdmin rabbitAdmin(ConnectionFactory connectionFactory) {
+//        return new RabbitAdmin(connectionFactory);
+//    }
 }
 

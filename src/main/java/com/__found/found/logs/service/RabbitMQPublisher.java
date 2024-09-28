@@ -1,5 +1,6 @@
 package com.__found.found.logs.service;
 import com.__found.found.logs.config.RabbitMQConfig;
+import com.__found.found.logs.model.Log;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
