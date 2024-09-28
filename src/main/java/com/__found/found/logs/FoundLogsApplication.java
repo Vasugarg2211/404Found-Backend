@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class FoundLogsApplication {
 
 	public static void main(String[] args) {
+		System.out.println("Log Application");
 		SpringApplication.run(FoundLogsApplication.class, args);
 	}
 
